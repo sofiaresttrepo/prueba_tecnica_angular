@@ -1,0 +1,371 @@
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #dbdff0 0%, #e6ddc6 100%);
+  padding: 0;
+  margin: 0;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #586e7d 0%, rgba(227, 216, 208, 0.9) 100%);
+  padding: 4rem 2rem;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-section {
+  margin-bottom: 3rem;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.profile-name {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.5px;
+}
+
+.profile-title {
+  font-size: 1.3rem;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 300;
+}
+
+.app-description h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.description-text {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  opacity: 0.95;
+  font-weight: 300;
+}
+
+/* Features Grid */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.feature-card p {
+  font-size: 1rem;
+  opacity: 0.9;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* SQL Section */
+.sql-section {
+  background: #f8f9fa;
+  padding: 4rem 2rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #6c757d;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.sql-cards-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+
+/* Panel Customization */
+:host ::ng-deep .sql-panel {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: none;
+  overflow: hidden;
+}
+
+:host ::ng-deep .sql-panel .p-panel-header {
+  background: linear-gradient(176deg, #586e7d 0%, rgba(227, 216, 208, 0.9) 100%);  color: white;
+  border: none;
+  padding: 1.5rem;
+}
+
+:host ::ng-deep .sql-panel .p-panel-content {
+  padding: 0;
+  border: none;
+}
+
+.panel-header-content {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.sql-content {
+  padding: 2rem;
+}
+
+.sql-textarea {
+  width: 100%;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  background: #2d3748;
+  color: #e2e8f0;
+  border: 1px solid #4a5568;
+  border-radius: 8px;
+  padding: 1rem;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.sql-textarea:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.sql-actions {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+:host ::ng-deep .copy-button {
+  background: linear-gradient(135deg, #586e7d 0%, #586e7d 100%);  border: none;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+:host ::ng-deep .copy-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.sql-instructions {
+  background: #e3f2fd;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #2196f3;
+  margin-top: 1.5rem;
+}
+
+.sql-instructions p {
+  margin: 0 0 1rem;
+  color: #1565c0;
+  font-weight: 600;
+}
+
+.sql-instructions ol {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #424242;
+}
+
+.sql-instructions li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.sql-note {
+  background: #fff3e0;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #ff9800;
+  margin-top: 1rem;
+}
+
+.sql-note p {
+  margin: 0;
+  color: #e65100;
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+/* Quick Actions */
+.quick-actions {
+  background: white;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.quick-actions h3 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.actions-grid {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+:host ::ng-deep .action-button {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+:host ::ng-deep .primary-action {
+  background: linear-gradient(135deg, #586e7d 0%, #586e7d 100%);  border: none;
+}
+
+:host ::ng-deep .secondary-action {
+  background: linear-gradient(135deg, #586e7d 0%, #586e7d 100%);  border: none;
+}
+
+:host ::ng-deep .action-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-name {
+    font-size: 2.5rem;
+  }
+  
+  .app-description h2 {
+    font-size: 2rem;
+  }
+  
+  .description-text {
+    font-size: 1.1rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .hero-section {
+    padding: 3rem 1rem;
+  }
+  
+  .sql-section {
+    padding: 3rem 1rem;
+  }
+  
+  .sql-content {
+    padding: 1.5rem;
+  }
+  
+  .actions-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  :host ::ng-deep .action-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-name {
+    font-size: 2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .sql-textarea {
+    font-size: 0.8rem;
+  }
+}

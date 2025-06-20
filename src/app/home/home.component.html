@@ -1,0 +1,163 @@
+<div class="home-container">
+  <p-toast></p-toast>
+  
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <div class="profile-section">
+          
+        </div>
+        <h1 class="profile-name">Sofia Restrepo Ramírez</h1>
+        <p class="profile-title">Desarrolladora Fullstack</p>
+      </div>
+      
+      <div class="app-description">
+        <h2>Sistema de Gestión de Entidades y Contactos</h2>
+        <p class="description-text">
+          Esta aplicación permite administrar de manera eficiente las entidades de su organización 
+          y sus contactos asociados. Desarrollada con Angular 17 y PrimeNG, ofrece una interfaz 
+          moderna e intuitiva para realizar operaciones CRUD completas.
+        </p>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <i class="pi pi-building feature-icon"></i>
+            <h3>Gestión de Entidades</h3>
+            <p>Administre empresas, organizaciones y entidades con información completa</p>
+          </div>
+          
+          <div class="feature-card">
+            <i class="pi pi-users feature-icon"></i>
+            <h3>Gestión de Contactos</h3>
+            <p>Mantenga un registro detallado de contactos asociados a cada entidad</p>
+          </div>
+          
+          <div class="feature-card">
+            <i class="pi pi-search feature-icon"></i>
+            <h3>Búsqueda Avanzada</h3>
+            <p>Encuentre rápidamente la información que necesita con filtros inteligentes</p>
+          </div>
+          
+          <div class="feature-card">
+            <i class="pi pi-mobile feature-icon"></i>
+            <h3>Diseño Responsivo</h3>
+            <p>Acceda desde cualquier dispositivo con una experiencia optimizada</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- SQL Section -->
+  <div class="sql-section">
+    <div class="section-header">
+      <h2>
+        <i class="pi pi-database mr-2"></i>
+        Datos de Prueba para la Base de Datos
+      </h2>
+      <p class="section-subtitle">
+        Utilice estos scripts SQL para insertar datos de prueba en su base de datos MySQL/phpMyAdmin
+      </p>
+    </div>
+    
+    <div class="sql-cards-container">
+      <!-- Entidades SQL -->
+      <p-panel header="Datos de Entidades" [toggleable]="true" [collapsed]="false" styleClass="sql-panel">
+        <ng-template pTemplate="header">
+          <div class="panel-header-content">
+            <i class="pi pi-building mr-2"></i>
+            <span>Datos de Entidades</span>
+            <p-tag value="5 registros" severity="info" class="ml-2"></p-tag>
+          </div>
+        </ng-template>
+        
+        <div class="sql-content">
+          <textarea 
+            pInputTextarea 
+            [value]="entidadesSql" 
+            readonly 
+            rows="8" 
+            class="sql-textarea"
+            placeholder="Código SQL para insertar entidades...">
+          </textarea>
+          
+          <div class="sql-actions">
+            <p-button 
+              label="Copiar al Portapapeles" 
+              icon="pi pi-copy" 
+              (click)="copyToClipboard(entidadesSql, 'entidades')"
+              styleClass="copy-button">
+            </p-button>
+          </div>
+          
+          <div class="sql-instructions">
+            <p><strong>Instrucciones:</strong></p>
+            <ol>
+              <li>Copie el código SQL haciendo clic en el botón</li>
+              <li>Abra phpMyAdmin y seleccione su base de datos</li>
+              <li>Vaya a la pestaña "SQL"</li>
+              <li>Pegue el código y ejecute la consulta</li>
+            </ol>
+          </div>
+        </div>
+      </p-panel>
+      
+      <!-- Contactos SQL -->
+      <p-panel header="Datos de Contactos" [toggleable]="true" [collapsed]="false" styleClass="sql-panel">
+        <ng-template pTemplate="header">
+          <div class="panel-header-content">
+            <i class="pi pi-users mr-2"></i>
+            <span>Datos de Contactos</span>
+            <p-tag value="7 registros" severity="success" class="ml-2"></p-tag>
+          </div>
+        </ng-template>
+        
+        <div class="sql-content">
+          <textarea 
+            pInputTextarea 
+            [value]="contactosSql" 
+            readonly 
+            rows="10" 
+            class="sql-textarea"
+            placeholder="Código SQL para insertar contactos...">
+          </textarea>
+          
+          <div class="sql-actions">
+            <p-button 
+              label="Copiar al Portapapeles" 
+              icon="pi pi-copy" 
+              (click)="copyToClipboard(contactosSql, 'contactos')"
+              styleClass="copy-button">
+            </p-button>
+          </div>
+          
+          <div class="sql-note">
+            <p><i class="pi pi-info-circle mr-2"></i>
+              <strong>Nota:</strong> Asegúrese de ejecutar primero el script de entidades antes que el de contactos, 
+              ya que los contactos tienen referencias a las entidades.
+            </p>
+          </div>
+        </div>
+      </p-panel>
+    </div>
+  </div>
+  
+  <!-- Quick Actions -->
+  <div class="quick-actions">
+    <h3>Acciones Rápidas</h3>
+    <div class="actions-grid">
+      <p-button 
+        label="Gestionar Entidades" 
+        icon="pi pi-building" 
+        routerLink="/entidades"
+        styleClass="action-button primary-action">
+      </p-button>
+      
+      <p-button 
+        label="Gestionar Contactos" 
+        icon="pi pi-users" 
+        routerLink="/contactos"
+        styleClass="action-button secondary-action">
+      </p-button>
+    </div>
+</div>

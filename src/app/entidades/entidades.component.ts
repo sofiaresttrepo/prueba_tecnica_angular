@@ -10,6 +10,7 @@ import { EntidadesService } from '../servicios/entidades.service';
 import { Entidad } from '../interfaces/entidad';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-entidades',
@@ -23,65 +24,54 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
     ToolbarModule,
     DialogModule,
     ReactiveFormsModule,
+    InputTextModule,
   ],
   templateUrl: './entidades.component.html',
   styleUrl: './entidades.component.css',
   providers: [MessageService],
 })
-export default class EntidadesComponent implements OnInit {
-closeDialog($event: MouseEvent) {
-throw new Error('Method not implemented.');
-}
-nextPage() {
-throw new Error('Method not implemented.');
-}
-previousPage() {
-throw new Error('Method not implemented.');
-}
-currentPage: any;
-pageSize: any;
-Math: any;
-totalPages: any;
-toggleSelect(_t51: any,$event: Event) {
-throw new Error('Method not implemented.');
-}
-isSelected(_t51: any) {
-throw new Error('Method not implemented.');
-}
-filteredEntidades: any;
-onSearch(arg0: string) {
-throw new Error('Method not implemented.');
-}
-refreshData() {
-throw new Error('Method not implemented.');
-}
-toggleSelectAll($event: Event) {
-throw new Error('Method not implemented.');
-}
+export class EntidadesComponent implements OnInit {
   public entidadesService = inject(EntidadesService);
   public messageService = inject(MessageService);
   total = computed(() => this.entidadesService.entidades().length);
   selectedEntidades: Entidad[] = [];
+  filteredEntidades: Entidad[] = [];
 
   entidadForm!: FormGroup;
   submitted = false;
   entidadDialog = false;
   editingEntidad: Entidad | null = null;
-allSelected: any;
 
   constructor(private fb: FormBuilder) {
     this.entidadForm = this.fb.group({
       id: [null],
       nombre: ['', Validators.required],
       nit: ['', Validators.required],
-      telefono: ['', Validators.required],
+      telefono: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       direccion: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
+    this.entidadesService.entidades$.subscribe(entidades => {
+      this.filteredEntidades = [...entidades];
+    });
+    
     this.entidadesService.getAll().subscribe();
-    console.log(' Componente Entidades Cargado');
+  }
+
+  onSearch(event: Event) {
+    const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+    if (searchTerm) {
+      this.filteredEntidades = this.entidadesService.entidades().filter(entidad => {
+        return entidad.nombre.toLowerCase().includes(searchTerm) ||
+               entidad.nit.toLowerCase().includes(searchTerm) ||
+               entidad.direccion.toLowerCase().includes(searchTerm) ||
+               entidad.telefono.toLowerCase().includes(searchTerm);
+      });
+    } else {
+      this.filteredEntidades = [...this.entidadesService.entidades()];
+    }
   }
 
   openNew() {
@@ -91,7 +81,14 @@ allSelected: any;
   }
 
   edit(entidad: Entidad) {
-    this.entidadForm.patchValue(entidad);
+    // Aseguramos que todos los campos, incluido el NIT, sean editables
+    this.entidadForm.patchValue({
+      id: entidad.id,
+      nombre: entidad.nombre,
+      nit: entidad.nit,
+      telefono: entidad.telefono,
+      direccion: entidad.direccion
+    });
     this.entidadDialog = true;
     this.editingEntidad = entidad;
   }
@@ -102,7 +99,6 @@ allSelected: any;
     if (this.entidadForm.invalid) return;
 
     const entidad: Entidad = this.entidadForm.value;
-    console.log('Datos enviados:', entidad);
     if (this.editingEntidad) {
       entidad.id = this.editingEntidad.id;
       
@@ -135,11 +131,15 @@ allSelected: any;
           });
           this.closeDialogAndRefresh();
         },
-        error: () => {
+        error: (error) => {
+          let errorMessage = 'No se pudo crear la entidad';
+          if (error.error?.message) {
+            errorMessage = error.error.message;
+          }
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'No se pudo crear la entidad',
+            detail: errorMessage,
           });
         },
       });
@@ -177,24 +177,34 @@ allSelected: any;
   deleteSelected() {
     if (this.selectedEntidades.length === 0) return;
 
-    const deletePromises = this.selectedEntidades
-      .filter(entidad => entidad.id) // Solo entidades con ID
-      .map(entidad => this.entidadesService.delete(entidad).toPromise());
-
-    Promise.all(deletePromises).then(() => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Eliminadas',
-        detail: `${this.selectedEntidades.length} entidades eliminadas`,
+    let entidadesEliminadas = 0;
+    let totalAEliminar = this.selectedEntidades.length;
+    
+    this.selectedEntidades
+      .filter(entidad => entidad.id)
+      .forEach(entidad => {
+        this.entidadesService.delete(entidad).subscribe({
+          next: () => {
+            entidadesEliminadas++;
+            
+            if (entidadesEliminadas === totalAEliminar) {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Eliminadas',
+                detail: `${entidadesEliminadas} entidades eliminadas`,
+              });
+              this.selectedEntidades = [];
+            }
+          },
+          error: () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error al eliminar algunas entidades',
+            });
+          }
+        });
       });
-      this.selectedEntidades = [];
-    }).catch(() => {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Error al eliminar algunas entidades',
-      });
-    });
   }
 
   private closeDialogAndRefresh() {

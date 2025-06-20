@@ -7,16 +7,15 @@ import { Entidad } from '../interfaces/entidad';
   providedIn: 'root'
 })
 export class EntidadesService {
-  // Cambia la URL al backend de Laravel
   private apiUrl = 'http://127.0.0.1:8000/api/entidades';
 
   private _entidades = new BehaviorSubject<Entidad[]>([]);
   public entidades = () => this._entidades.value;
+  public entidades$ = this._entidades.asObservable();
   public loading = () => false;
 
-  constructor(private http: HttpClient) {
-    this.getAll().subscribe();
-  }
+  constructor(private http: HttpClient) {}
+
 
   getAll(): Observable<Entidad[]> {
     return this.http.get<Entidad[]>(this.apiUrl).pipe(
