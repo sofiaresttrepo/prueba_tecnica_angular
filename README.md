@@ -1,8 +1,9 @@
-###📦 Frontend - Angular
+### 📦 Frontend - Angular
 
-##🧾 Descripción General
+## 🧾 Descripción General
 Este frontend fue desarrollado en Angular utilizando la arquitectura standalone components. Permite gestionar entidades y sus respectivos contactos, consumiendo un API REST desarrollado en Laravel.
 
+👉 [Vistas](https://docs.google.com/document/d/1ibNgAzD_b3Az0QYS7aEdDSDXlpgIC0taBK7XQLwPhAs/edit?tab=t.0)
 ---
 
 
